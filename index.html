@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Équipes & Membres</title>
+    <link rel="stylesheet" href="../theme/assets/animations.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        :root {
+            --retro-bg: #C0C0C0;
+            --retro-dark: #808080;
+            --retro-light: #DFDFDF;
+            --retro-white: #FFFFFF;
+            --retro-black: #000000;
+            --retro-blue: #000080;
+            --retro-cyan: #00FFFF;
+            --retro-magenta: #FF00FF;
+            --retro-yellow: #FFFF00;
+            --retro-button-face: #C0C0C0;
+            --retro-button-shadow: #808080;
+            --retro-button-highlight: #DFDFDF;
+        }
+        html, body {
+            height: 100%;
+        }
+        body {
+            font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Arial, sans-serif;
+            background: linear-gradient(135deg, #808080 0%, #606060 100%);
+            color: #FFFFFF;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        header {
+            background: linear-gradient(to right, #000080, #1084D7);
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            box-shadow: inset 1px 1px 0 #FFFFFF, inset -1px -1px 0 #000000;
+        }
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            min-width: auto;
+        }
+        .header-logo {
+            height: 40px;
+            width: auto;
+        }
+        .header-title h1 {
+            font-family: 'MS Sans Serif', Arial, sans-serif;
+            color: var(--retro-cyan);
+            margin: 0;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 0 var(--retro-black);
+            font-weight: bold;
+        }
+        .header-middle {
+            flex: 1;
+            text-align: center;
+            color: #FFFFFF;
+            font-size: 0.7rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 0 #000000;
+        }
+        .timer-box {
+            background: #909090;
+            border: 3px solid;
+            border-color: #DFDFDF #404040 #404040 #DFDFDF;
+            padding: 0.5rem 0.8rem;
+            text-align: center;
+            box-shadow: inset 1px 1px 0 #FFFFFF, inset -1px -1px 0 #000000;
+            white-space: nowrap;
+        }
+        .timer-label {
+            font-size: 0.6rem;
+            color: #FFFFFF;
+            margin: 0 0 0.2rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+        #countdown {
+            font-size: 1.1rem;
+            color: #FF00FF;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 0 #000000;
+        }
+        .progress-bar {
+            width: 150px;
+            height: 12px;
+            background: #707070;
+            border: 2px solid;
+            border-color: #404040 #DFDFDF #DFDFDF #404040;
+            margin-top: 0.5rem;
+            overflow: hidden;
+            box-shadow: inset 1px 1px 0 #000000;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, #000080, #1084D7);
+            width: 0%;
+            transition: width 1s linear;
+        }
+        
+        .teams-container {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 1rem;
+            max-width: 100%;
+            padding: 1rem;
+            background: #606060;
+        }
+        .team-box {
+            background: #A0A0A0;
+            border: 3px solid;
+            border-color: var(--retro-button-highlight) var(--retro-button-shadow) var(--retro-button-shadow) var(--retro-button-highlight);
+            padding: 0.8rem;
+            color: #FFFFFF;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 1px 1px 0 var(--retro-white), inset -1px -1px 0 var(--retro-black);
+        }
+        .team-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--retro-cyan), transparent);
+            opacity: 0.6;
+        }
+        .team-box:hover {
+            border-color: var(--retro-button-shadow) var(--retro-button-highlight) var(--retro-button-highlight) var(--retro-button-shadow);
+            box-shadow: inset 1px 1px 0 var(--retro-black), inset -1px -1px 0 var(--retro-white);
+        }
+        .team-title {
+            font-size: 1.15rem;
+            font-family: 'MS Sans Serif', Arial, sans-serif;
+            font-weight: bold;
+            margin: 0 0 0.4rem 0;
+            color: #000000;
+            text-align: center;
+            letter-spacing: 0.5px;
+            word-break: break-word;
+            text-shadow: 1px 1px 0 #FFFFFF;
+            min-height: 1.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .team-affiliation {
+            font-size: 0.65rem;
+            color: #FFFF00;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px dashed #FFFFFF;
+            font-style: italic;
+            min-height: 0.9rem;
+            font-weight: bold;
+            text-shadow: 1px 1px 0 #000000;
+        }
+        .member-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .member-list li {
+            padding: 0.2rem 0.3rem;
+            margin: 0.1rem 0;
+            border-bottom: none;
+            color: #FFFFFF;
+            font-family: 'MS Sans Serif', Arial, sans-serif;
+            font-size: 0.7rem;
+            text-align: center;
+            word-break: break-word;
+            background: #707070;
+            border-radius: 0;
+            transition: background 0.1s;
+            border: 1px solid #505050;
+        }
+        .member-list li:hover {
+            background: var(--retro-blue);
+            color: var(--retro-cyan);
+        }
+        .loading {
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+            font-family: 'MS Sans Serif', Arial, sans-serif;
+            grid-column: 1 / -1;
+            text-shadow: 2px 2px 0 #000000;
+        }
+        
+        /* Responsive: 3 colonnes sur écrans moyens (1400px) */
+        @media (max-width: 1400px) {
+            .teams-container {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.8rem;
+            }
+            header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .timer-box {
+                width: 100%;
+            }
+        }
+        
+        /* Responsive: 2 colonnes sur écrans petits (1000px) */
+        @media (max-width: 1000px) {
+            .teams-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.6rem;
+                margin: 0.8rem auto;
+                padding: 0.8rem;
+            }
+            .team-box {
+                padding: 0.6rem;
+            }
+            .team-title {
+                font-size: 0.65rem;
+                min-height: 1.4rem;
+            }
+            .team-affiliation {
+                font-size: 0.6rem;
+            }
+            header {
+                padding: 0.6rem 1rem;
+                gap: 0.8rem;
+            }
+            #countdown {
+                font-size: 1.3rem;
+            }
+        }
+        
+        /* Responsive: 1 colonne sur très petits écrans (640px) */
+        @media (max-width: 640px) {
+            .teams-container {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+                margin: 0.5rem auto;
+                padding: 0.5rem;
+            }
+            .team-box {
+                padding: 0.5rem;
+            }
+            .team-title {
+                font-size: 0.6rem;
+                min-height: 1.2rem;
+            }
+            .member-list li {
+                font-size: 0.6rem;
+                padding: 0.15rem 0.2rem;
+            }
+            header {
+                padding: 0.6rem 0.8rem;
+                flex-direction: column;
+            }
+            .header-title h1 {
+                font-size: 0.9rem;
+            }
+            #countdown {
+                font-size: 1rem;
+            }
+            .timer-box {
+                padding: 0.6rem 0.8rem;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-title">
+            <img src="https://i.ibb.co/4wsd2Rfw/Guardi-Hack.png" alt="GuardiHack" class="header-logo">
+        </div>
+        <div class="header-middle">
+            Équipes inscrites
+        </div>
+        <div class="timer-box">
+            <p class="timer-label">Début du CTF</p>
+            <div id="countdown">--:--:--</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="teams-container" id="teamsContainer">
+        <!-- Les équipes seront injectées ici -->
+    </div>
+    <div class="loading" id="loadingMsg">Chargement des équipes...</div>
+    <script>
+    const API_URL = "https://ctf.guardihack.com/api/v1/teams";
+    const USERS_API = "https://ctf.guardihack.com/api/v1/users";
+    
+    // Date de début du CTF (à adapter)
+    const CTF_START_DATE = new Date("2026-03-12T12:30:00").getTime();
+    const CTF_END_DATE = new Date("2026-03-14T12:30:00").getTime();
+    
+    // Inscriptions: début passé et fin le 12 mars à 12h30
+    const REGISTRATION_START_DATE = new Date("2026-03-01T00:00:00").getTime();
+    const REGISTRATION_END_DATE = new Date("2026-03-12T12:30:00").getTime();
+    
+    // Cache pour les utilisateurs
+    let usersCache = {};
+
+    // --- TIMER ---
+    function updateTimer() {
+        const now = new Date().getTime();
+        const countdownEl = document.getElementById('countdown');
+        const progressFill = document.getElementById('progress-fill');
+        
+        if (now < REGISTRATION_END_DATE) {
+            // Avant la fin des inscriptions - période d'inscription en cours
+            const distance = REGISTRATION_END_DATE - now;
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            countdownEl.textContent = `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            
+            // Barre de progression: 0% à 100% du début des inscriptions à la fin
+            const totalDuration = REGISTRATION_END_DATE - REGISTRATION_START_DATE;
+            const elapsed = now - REGISTRATION_START_DATE;
+            const progress = Math.min(100, Math.max(0, (elapsed / totalDuration) * 100));
+            progressFill.style.width = progress + '%';
+        } else if (now >= CTF_START_DATE && now < CTF_END_DATE) {
+            // Pendant le CTF
+            const distance = CTF_END_DATE - now;
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            countdownEl.textContent = `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            
+            const totalDuration = CTF_END_DATE - CTF_START_DATE;
+            const elapsed = now - CTF_START_DATE;
+            const progress = (elapsed / totalDuration) * 100;
+            progressFill.style.width = progress + '%';
+        } else {
+            // Après les inscriptions ou le CTF
+            countdownEl.textContent = 'TERMINÉ';
+            progressFill.style.width = '100%';
+        }
+    }
+
+    async function fetchAllUsers() {
+        try {
+            if (Object.keys(usersCache).length > 0) return usersCache;
+            
+            let allUsers = [];
+            let page = 1;
+            let hasMore = true;
+            
+            while (hasMore) {
+                const res = await fetch(`${USERS_API}?page=${page}`);
+                if (!res.ok) break;
+                const data = await res.json();
+                const users = data.data || [];
+                allUsers = allUsers.concat(users);
+                
+                const pagination = data.meta?.pagination;
+                if (pagination && pagination.next) {
+                    page = pagination.next;
+                } else {
+                    hasMore = false;
+                }
+            }
+            
+            // Créer un cache par ID utilisateur
+            allUsers.forEach(user => {
+                usersCache[user.id] = user;
+            });
+            
+            return usersCache;
+        } catch (e) {
+            console.error('Erreur récupération utilisateurs:', e);
+            return {};
+        }
+    }
+
+    async function fetchTeamMembers(teamId) {
+        try {
+            const res = await fetch(`${API_URL}/${teamId}`);
+            if (!res.ok) return { memberIds: [], captainId: null };
+            const data = await res.json();
+            return {
+                memberIds: Array.isArray(data.data?.members) ? data.data.members : [],
+                captainId: data.data?.captain_id
+            };
+        } catch (e) {
+            console.log(`Équipe ${teamId} - pas accessible`);
+            return { memberIds: [], captainId: null };
+        }
+    }
+
+    async function fetchTeamsAndMembers() {
+        try {
+            const res = await fetch(API_URL);
+            
+            if (!res.ok) {
+                throw new Error(`Erreur API: ${res.status}`);
+            }
+            
+            // Charger le cache utilisateurs une seule fois
+            await fetchAllUsers();
+            
+            const data = await res.json();
+            let teams = Array.isArray(data.data) ? data.data : [];
+            
+            // Récupérer les IDs des membres pour chaque équipe
+            for (let team of teams) {
+                const memberData = await fetchTeamMembers(team.id);
+                team.memberIds = memberData.memberIds;
+                team.captain_id = memberData.captainId;
+                
+                // Convertir les IDs en objets utilisateurs
+                team.members = team.memberIds.map(userId => usersCache[userId]).filter(u => u);
+            }
+            
+            return teams;
+        } catch (e) {
+            console.error('Erreur API:', e);
+            document.getElementById('teamsContainer').innerHTML = `<div class='loading'>Erreur: ${e.message}</div>`;
+            document.getElementById('loadingMsg').style.display = 'none';
+            return [];
+        }
+    }
+
+    async function renderTeams() {
+        document.getElementById('loadingMsg').style.display = 'block';
+        let teamsData = await fetchTeamsAndMembers();
+        const container = document.getElementById('teamsContainer');
+        container.innerHTML = '';
+        
+        if (!Array.isArray(teamsData) || teamsData.length === 0) {
+            container.innerHTML = '<div class="loading">Aucune équipe trouvée.</div>';
+            document.getElementById('loadingMsg').style.display = 'none';
+            return;
+        }
+        
+        // Trier par ID décroissant (plus haut ID en premier)
+        teamsData = teamsData.slice().sort((a, b) => b.id - a.id);
+        
+        for (const team of teamsData) {
+            const box = document.createElement('div');
+            box.className = 'team-box';
+            
+            // Team name
+            const teamName = team.name || 'Équipe';
+            
+            // Team affiliation
+            const affiliation = team.affiliation || team.country || 'N/A';
+            
+            // Get team members info
+            let membersHtml = '';
+            if (Array.isArray(team.members) && team.members.length > 0) {
+                membersHtml = team.members.map(m => {
+                    // Récupérer le nom
+                    const memberName = m.name || m.username || `User ${m.id}`;
+                    const isCaptain = m.id === team.captain_id;
+                    const captainBadge = isCaptain ? '<span class="cap-tag">CAP</span> ' : '';
+                    return `<li>${captainBadge}${memberName}</li>`;
+                }).join('');
+            } else {
+                membersHtml = '<li style="color:var(--muted);font-style:italic;">Aucun membre</li>';
+            }
+            
+            box.innerHTML = `
+                <div class="team-title">${teamName.substring(0, 30)}</div>
+                <div class="team-affiliation">${affiliation}</div>
+                <ul class="member-list">
+                    ${membersHtml}
+                </ul>
+            `;
+            container.appendChild(box);
+        }
+        document.getElementById('loadingMsg').style.display = 'none';
+    }
+
+    // Initialisation
+    document.addEventListener('DOMContentLoaded', () => {
+        updateTimer();
+        setInterval(updateTimer, 1000);
+        renderTeams();
+        setInterval(renderTeams, 15000); // Refresh every 15 seconds
+        
+        // Wake Lock pour empêcher l'extinction de l'écran
+        enableWakeLock();
+    });
+    
+    // Wake Lock API
+    async function enableWakeLock() {
+        try {
+            if ('wakeLock' in navigator) {
+                const wakeLock = await navigator.wakeLock.request('screen');
+                console.log('Wake Lock activé - écran restera actif');
+                
+                document.addEventListener('visibilitychange', async () => {
+                    if (!document.hidden) {
+                        try {
+                            await navigator.wakeLock.request('screen');
+                        } catch (err) {
+                            console.error('Erreur Wake Lock:', err);
+                        }
+                    }
+                });
+            }
+        } catch (err) {
+            console.log('Wake Lock non supporté:', err);
+        }
+    }
+    </script>
+    <style>
+    .cap-tag {
+        display: inline-block;
+        background: var(--retro-yellow);
+        color: var(--retro-blue);
+        font-size: 0.75em;
+        font-weight: bold;
+        border: 1px solid;
+        border-color: #DFDFDF #808080 #808080 #DFDFDF;
+        border-radius: 0;
+        padding: 0.1em 0.4em;
+        margin-right: 0.3em;
+        letter-spacing: 0.5px;
+        box-shadow: inset 1px 1px 0 #FFFFFF, inset -1px -1px 0 #000000;
+        vertical-align: middle;
+        font-family: 'MS Sans Serif', Arial, sans-serif;
+    }
+    </style>
+</body>
