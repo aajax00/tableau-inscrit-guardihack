@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Équipes & Membres</title>
-    <link rel="stylesheet" href="../theme/assets/animations.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
@@ -300,42 +299,446 @@
         }
         
         /* Responsive: 1 colonne sur très petits écrans (640px) */
-        @media (max-width: 640px) {
-            .teams-container {
-                grid-template-columns: 1fr;
-                gap: 0.5rem;
-                margin: 0.5rem auto;
-                padding: 0.5rem;
+        @media (min-width: 769px) {
+            .show-mobile { display: none !important; }
+        }
+        
+        /* ===== ANIMATIONS FROM animations.css ===== */
+        
+        /* ===== GLITCH EFFECT ===== */
+        .glitch {
+            position: relative;
+            animation: glitch-skew 1s infinite linear alternate-reverse;
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #00CFF6;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+        
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #D6BE91;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-anim {
+            0% { clip: rect(10px, 9999px, 31px, 0); }
+            5% { clip: rect(70px, 9999px, 71px, 0); }
+            10% { clip: rect(30px, 9999px, 71px, 0); }
+            15% { clip: rect(60px, 9999px, 80px, 0); }
+            20% { clip: rect(10px, 9999px, 105px, 0); }
+            25% { clip: rect(120px, 9999px, 65px, 0); }
+            30% { clip: rect(35px, 9999px, 43px, 0); }
+            35% { clip: rect(90px, 9999px, 98px, 0); }
+            40% { clip: rect(55px, 9999px, 15px, 0); }
+            45% { clip: rect(25px, 9999px, 120px, 0); }
+            50% { clip: rect(80px, 9999px, 52px, 0); }
+            55% { clip: rect(40px, 9999px, 88px, 0); }
+            60% { clip: rect(95px, 9999px, 33px, 0); }
+            65% { clip: rect(15px, 9999px, 100px, 0); }
+            70% { clip: rect(75px, 9999px, 45px, 0); }
+            75% { clip: rect(50px, 9999px, 92px, 0); }
+            80% { clip: rect(20px, 9999px, 110px, 0); }
+            85% { clip: rect(85px, 9999px, 28px, 0); }
+            90% { clip: rect(5px, 9999px, 115px, 0); }
+            95% { clip: rect(65px, 9999px, 38px, 0); }
+            100% { clip: rect(100px, 9999px, 12px, 0); }
+        }
+        
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); }
+            5% { clip: rect(20px, 9999px, 50px, 0); }
+            10% { clip: rect(80px, 9999px, 30px, 0); }
+            15% { clip: rect(10px, 9999px, 90px, 0); }
+            20% { clip: rect(50px, 9999px, 40px, 0); }
+            25% { clip: rect(95px, 9999px, 15px, 0); }
+            30% { clip: rect(25px, 9999px, 75px, 0); }
+            35% { clip: rect(70px, 9999px, 35px, 0); }
+            40% { clip: rect(5px, 9999px, 110px, 0); }
+            45% { clip: rect(85px, 9999px, 20px, 0); }
+            50% { clip: rect(40px, 9999px, 95px, 0); }
+            55% { clip: rect(100px, 9999px, 5px, 0); }
+            60% { clip: rect(15px, 9999px, 85px, 0); }
+            65% { clip: rect(75px, 9999px, 45px, 0); }
+            70% { clip: rect(30px, 9999px, 100px, 0); }
+            75% { clip: rect(90px, 9999px, 25px, 0); }
+            80% { clip: rect(55px, 9999px, 70px, 0); }
+            85% { clip: rect(10px, 9999px, 105px, 0); }
+            90% { clip: rect(80px, 9999px, 35px, 0); }
+            95% { clip: rect(45px, 9999px, 60px, 0); }
+            100% { clip: rect(105px, 9999px, 10px, 0); }
+        }
+        
+        @keyframes glitch-skew {
+            0% { transform: skew(0deg); }
+            10% { transform: skew(-2deg); }
+            20% { transform: skew(2deg); }
+            30% { transform: skew(-1deg); }
+            40% { transform: skew(1deg); }
+            50% { transform: skew(0deg); }
+            60% { transform: skew(1deg); }
+            70% { transform: skew(-2deg); }
+            80% { transform: skew(2deg); }
+            90% { transform: skew(-1deg); }
+            100% { transform: skew(0deg); }
+        }
+        
+        /* ===== NEON BORDER ANIMATION ===== */
+        .neon-border {
+            position: relative;
+            border: 2px solid var(--accent-cyan);
+            box-shadow: 
+                0 0 5px var(--accent-cyan),
+                0 0 10px var(--accent-cyan),
+                0 0 20px var(--accent-cyan),
+                0 0 40px var(--accent-cyan);
+            animation: neon-pulse 1.5s ease-in-out infinite alternate;
+        }
+        
+        @keyframes neon-pulse {
+            from {
+                box-shadow: 
+                    0 0 5px var(--accent-cyan),
+                    0 0 10px var(--accent-cyan),
+                    0 0 20px var(--accent-cyan),
+                    0 0 40px var(--accent-cyan);
             }
-            .team-box {
-                padding: 0.5rem;
+            to {
+                box-shadow: 
+                    0 0 10px var(--accent-cyan),
+                    0 0 20px var(--accent-cyan),
+                    0 0 40px var(--accent-cyan),
+                    0 0 80px var(--accent-cyan);
             }
-            .team-title {
-                font-size: 0.6rem;
-                min-height: 1.2rem;
+        }
+        
+        /* ===== SCAN LINE EFFECT ===== */
+        .scanline-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .scanline-effect::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                rgba(0, 207, 246, 0.1) 50%,
+                transparent 100%
+            );
+            animation: scanline 6s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes scanline {
+            0% { top: -50%; }
+            100% { top: 150%; }
+        }
+        
+        /* ===== CYBER GRID BACKGROUND ===== */
+        .cyber-grid {
+            background-image: 
+                linear-gradient(rgba(0, 207, 246, 0.05) 2px, transparent 2px),
+                linear-gradient(90deg, rgba(0, 207, 246, 0.05) 2px, transparent 2px);
+            background-size: 50px 50px;
+            position: relative;
+        }
+        
+        .cyber-grid::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, transparent 20%, var(--bg-primary) 100%);
+        }
+        
+        /* ===== HOLOGRAM EFFECT ===== */
+        .hologram {
+            position: relative;
+            background: linear-gradient(
+                45deg,
+                rgba(0, 207, 246, 0.1),
+                rgba(214, 190, 145, 0.1)
+            );
+            animation: hologram-shift 3s ease-in-out infinite;
+        }
+        
+        .hologram::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            animation: hologram-scan 2s linear infinite;
+        }
+        
+        @keyframes hologram-shift {
+            0%, 100% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(20deg); }
+        }
+        
+        @keyframes hologram-scan {
+            0% { left: -100%; }
+            100% { left: 200%; }
+        }
+        
+        /* ===== TYPING CURSOR ===== */
+        .typing-cursor::after {
+            content: '|';
+            animation: cursor-blink 1s step-end infinite;
+            color: var(--accent-cyan);
+        }
+        
+        @keyframes cursor-blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        /* ===== FLOATING ANIMATION ===== */
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
             }
-            .member-list li {
-                font-size: 0.6rem;
-                padding: 0.15rem 0.2rem;
+            50% {
+                transform: translateY(-20px);
             }
-            header {
-                padding: 0.6rem 0.8rem;
-                flex-direction: column;
-            }
-            .header-title h1 {
-                font-size: 0.9rem;
-            }
-            #countdown {
-                font-size: 1rem;
-            }
-            .timer-box {
-                padding: 0.6rem 0.8rem;
-                width: 100%;
-                flex-direction: column;
-            }
-            .qrcode-img {
-                height: 80px;
-            }
+        }
+        
+        /* ===== SHAKE ANIMATION ===== */
+        .shake {
+            animation: shake 0.5s;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+            20%, 40%, 60%, 80% { transform: translateX(10px); }
+        }
+        
+        /* ===== CYBER BUTTON VARIANTS ===== */
+        .btn-cyber {
+            position: relative;
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: 2px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            font-family: 'Fira Code', monospace;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-cyber::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: var(--accent-cyan);
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease;
+            z-index: -1;
+        }
+        
+        .btn-cyber:hover::before {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .btn-cyber:hover {
+            color: var(--bg-primary);
+            box-shadow: 0 0 20px var(--glow-cyan);
+        }
+        
+        /* ===== HEXAGON SHAPES ===== */
+        .hexagon {
+            width: 100px;
+            height: 57.735px;
+            background: var(--accent-cyan);
+            position: relative;
+            margin: 28.8675px 0;
+        }
+        
+        .hexagon::before,
+        .hexagon::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+        }
+        
+        .hexagon::before {
+            bottom: 100%;
+            border-bottom: 28.8675px solid var(--accent-cyan);
+        }
+        
+        .hexagon::after {
+            top: 100%;
+            width: 0;
+            border-top: 28.8675px solid var(--accent-cyan);
+        }
+        
+        /* ===== PROGRESS BAR CYBER ===== */
+        .progress-cyber {
+            height: 30px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--accent-cyan);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .progress-cyber-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-gold));
+            animation: progress-shimmer 2s infinite;
+            position: relative;
+        }
+        
+        .progress-cyber-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            animation: progress-shine 1.5s infinite;
+        }
+        
+        @keyframes progress-shimmer {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+        
+        @keyframes progress-shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(200%); }
+        }
+        
+        /* ===== TERMINAL WINDOW ===== */
+        .terminal-window {
+            background: var(--bg-primary);
+            border: 2px solid var(--accent-cyan);
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(0, 207, 246, 0.3);
+            overflow: hidden;
+        }
+        
+        .terminal-header {
+            background: var(--bg-tertiary);
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid var(--accent-cyan);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        
+        .terminal-dot.red { background: #ff0055; }
+        .terminal-dot.yellow { background: #D6BE91; }
+        .terminal-dot.green { background: #00ff88; }
+        
+        .terminal-body {
+            padding: 1rem;
+            font-family: 'Fira Code', monospace;
+            color: var(--success);
+            line-height: 1.6;
+        }
+        
+        .terminal-prompt::before {
+            content: '$ ';
+            color: var(--accent-cyan);
+        }
+        
+        /* ===== MATRIX RAIN (optional overlay) ===== */
+        .matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.05;
+        }
+        
+        /* ===== CYBER DIVIDER ===== */
+        .cyber-divider {
+            height: 2px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                var(--accent-cyan) 20%,
+                var(--accent-gold) 50%,
+                var(--accent-cyan) 80%,
+                transparent
+            );
+            box-shadow: 0 0 10px var(--glow-cyan);
+            margin: 2rem 0;
+        }
+        
+        /* ===== LOADING SPINNER CYBER ===== */
+        .spinner-cyber {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--bg-secondary);
+            border-top-color: var(--accent-cyan);
+            border-right-color: var(--accent-gold);
+            border-radius: 50%;
+            animation: spinner-rotate 1s linear infinite;
+            box-shadow: 0 0 20px var(--glow-cyan);
+        }
+        
+        @keyframes spinner-rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -424,33 +827,36 @@
         }
     }
 
-    async function fetchAllUsers() {
+    async function fetchAllUsers(forceRefresh = false) {
         try {
-            if (Object.keys(usersCache).length > 0) return usersCache;
-            
-            let allUsers = [];
-            let page = 1;
-            let hasMore = true;
-            
-            while (hasMore) {
-                const res = await fetch(`${USERS_API}?page=${page}`);
-                if (!res.ok) break;
-                const data = await res.json();
-                const users = data.data || [];
-                allUsers = allUsers.concat(users);
+            // Si on force le rafraîchissement ou si le premier chargement n'a pas été fait
+            if (forceRefresh || Object.keys(usersCache).length === 0) {
+                usersCache = {}; // Vider le cache pour forcer le rechargement
                 
-                const pagination = data.meta?.pagination;
-                if (pagination && pagination.next) {
-                    page = pagination.next;
-                } else {
-                    hasMore = false;
+                let allUsers = [];
+                let page = 1;
+                let hasMore = true;
+                
+                while (hasMore) {
+                    const res = await fetch(`${USERS_API}?page=${page}`);
+                    if (!res.ok) break;
+                    const data = await res.json();
+                    const users = data.data || [];
+                    allUsers = allUsers.concat(users);
+                    
+                    const pagination = data.meta?.pagination;
+                    if (pagination && pagination.next) {
+                        page = pagination.next;
+                    } else {
+                        hasMore = false;
+                    }
                 }
+                
+                // Créer un cache par ID utilisateur
+                allUsers.forEach(user => {
+                    usersCache[user.id] = user;
+                });
             }
-            
-            // Créer un cache par ID utilisateur
-            allUsers.forEach(user => {
-                usersCache[user.id] = user;
-            });
             
             return usersCache;
         } catch (e) {
@@ -482,8 +888,8 @@
                 throw new Error(`Erreur API: ${res.status}`);
             }
             
-            // Charger le cache utilisateurs une seule fois
-            await fetchAllUsers();
+            // Charger le cache utilisateurs à chaque rafraîchissement (force=true)
+            await fetchAllUsers(true);
             
             const data = await res.json();
             let teams = Array.isArray(data.data) ? data.data : [];
